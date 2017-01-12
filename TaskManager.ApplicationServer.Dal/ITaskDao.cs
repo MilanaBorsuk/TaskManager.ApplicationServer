@@ -9,5 +9,9 @@ namespace TaskManager.ApplicationServer.Dal
     public interface ITaskDao
     {
         int GetTasksNumber();
+
+        void DeleteTask(int id);
+
+        List<TblTask> GetTasks();
     }
 }

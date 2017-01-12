@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
+using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,11 +36,23 @@ namespace TaskManager.ApplicationServer
             builder.RegisterWebApiFilterProvider(config);
 
             builder.RegisterType<TaskDao>().As<ITaskDao>();
+            builder.RegisterType<MilanaTestEntities>();
 
             // Set the dependency resolver to be Autofac.
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
-           
+
+            InitializeAutoMapper();
+
+
+
+    }
+
+        public static void InitializeAutoMapper()
+        {
+            Mapper.Initialize(x =>
+                x.AddProfile<MapProfile>()
+                );
         }
     }
 }
